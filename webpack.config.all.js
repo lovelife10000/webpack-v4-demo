@@ -334,8 +334,26 @@ const config = {
     },
     externals: (request) => { /* ... */ return "commonjs " + request }
     // 不要遵循/打包这些模块，而是在运行时从环境中请求他们
-    serve,
-    stats,
+
+
+    serve: { //object
+        port: 1337,
+        content './dist',
+        // ...
+    },
+    // lets you provide options for webpack-serve
+
+
+
+    stats: "errors-only",
+    stats: { //object
+        assets: true,
+        colors: true,
+        errors: true,
+        errorDetails: true,
+        hash: true,
+        // ...
+    },
 
 
     stats: "errors-only",
