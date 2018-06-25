@@ -1,0 +1,20 @@
+{
+  "name": "webpack-v4-demo",
+  "version": "1.0.0",
+  "description": "demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"webpack "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lovelife10000/webpack-v4-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lovelife10000/webpack-v4-demo/issues"
+  },
+  "homepage": "https://github.com/lovelife10000/webpack-v4-demo#readme"
+}
