@@ -1,0 +1,6 @@
+body{
+    background: url('~assets/images/aaa.jpg');
+    display: flex;
+}
+
+@import "~components/App/chidIndex.css";

@@ -1,5 +1,3 @@
-
-
 const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -105,7 +103,34 @@ const config = {
 
 
     },
-    plugins: [],
+    plugins: [
+        new webpack.DefinePlugin({
+            __DEVCLIENT__: true,
+            __DEVSERVER__: false,
+            __DEVTOOLS__: false,
+            __DEVLOGGER__: true,
+            'process.env': {
+                'NODE_ENV': JSON.stringify('development')
+            }
+        }),
+        new ExtractTextPlugin({
+            filename: '[hash:8].style.css',
+            disable: false,
+            allChunks: true,
+        }),
+        new HtmlWebpackPlugin({//将打包出来的js文件，插入到index.html的script标签中
+
+            title: '',
+            template: path.join(__dirname, './src/assets/index.html'), // 模板文件
+            inject: 'body',//插入的位置
+            initialData: 'window.__INITIAL_STATE__ = <%- __state__ %>',
+            hash: false, // 为静态资源生成hash值
+            minify: { // 压缩HTML文件
+                removeComments: false, // 移除HTML中的注释
+                collapseWhitespace: false, // 删除空白符与换行符
+            },
+        }),
+    ],
     module: {
         rules: [
 
@@ -280,13 +305,13 @@ const config = {
         // 应用于解析器的附加插件
     },
     optimization: [],
-    performance:{
+    performance: {
         hints: "warning", // 枚举
         hints: "error", // 性能提示中抛出错误
         hints: false, // 关闭性能提示
         maxAssetSize: 200000, // 整数类型（以字节为单位）
         maxEntrypointSize: 400000, // 整数类型（以字节为单位）
-        assetFilter: function(assetFilename) {
+        assetFilter: function (assetFilename) {
             // 提供资源文件名的断言函数
             return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
         }
@@ -309,10 +334,6 @@ const config = {
     // 相对于此目录解析
 
 
-
-
-
-
     target: "web", // 枚举
     target: "webworker", // WebWorker
     target: "node", // node.js 通过 require
@@ -320,10 +341,10 @@ const config = {
     target: "node-webkit", // nw.js
     target: "electron-main", // electron，主进程(main process)
     target: "electron-renderer", // electron，渲染进程(renderer process)
-    target: (compiler) => { /* ... */ }, // 自定义
+    target: (compiler) => { /* ... */
+    }, // 自定义
     // 包(bundle)应该运行的环境
     // 更改 块加载行为(chunk loading behavior) 和 可用模块(available module)
-
 
 
     externals: ["react", /^@angular\//],
@@ -338,17 +359,18 @@ const config = {
             root: "React"
         }
     },
-    externals: (request) => { /* ... */ return "commonjs " + request }
+    externals: (request) => { /* ... */
+        return "commonjs " + request
+    }
     // 不要遵循/打包这些模块，而是在运行时从环境中请求他们
 
 
     serve: { //object
         port: 1337,
-        content './dist',
+        content: './dist',
         // ...
     },
     // lets you provide options for webpack-serve
-
 
 
     stats: "errors-only",
@@ -374,25 +396,24 @@ const config = {
     // 精确控制要显示的 bundle 信息
 
 
-
     devServer: {
         proxy: { // proxy URLs to backend development server
             '/api': 'http://localhost:3000'
         },
-        contentBase: path.join(__dirname, 'public'), // boolean | string | array, static file location
+        contentBase: path.join(__dirname, 'public'), // 以webpack-dev-server启动服务时，指明，使用哪个文件夹中的index.html
         compress: true, // enable gzip compression
         historyApiFallback: true, // true for index.html upon 404, object for multiple paths
         hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
         https: false, // true for self-signed, object for cert authority
-        noInfo: true, // only errors & warns on hot reload
+        noInfo: true, // only errors & warns on hot reload,
+        port: 9000//端口
         // ...
     },
 
 
-
     /* 高级配置（点击展示） */
 
-    resolveLoader: { /* 等同于 resolve */ }
+    resolveLoader: {/* 等同于 resolve */},
     // 独立解析选项的 loader
 
     parallelism: 1, // number
