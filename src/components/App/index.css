@@ -3,4 +3,17 @@ body{
     display: flex;
 }
 
+.a{
+    background: url("../../../dist/images/sprites.png") no-repeat;
+    background-position: 0px 0px;
+    width:48px;
+    height: 48px;
+}
+.b{
+    background: url("../../../dist/images/sprites.png") no-repeat;
+    background-position: -48px 0px;
+    width:48px;
+    height: 48px;
+}
+
 @import "~components/App/chidIndex.css";

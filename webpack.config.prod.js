@@ -3,6 +3,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const SpritesmithPlugin = require('webpack-spritesmith');
 
 const config = {
     mode: 'development',//debugger会被忽略掉
@@ -29,6 +30,19 @@ const config = {
         new MiniCssExtractPlugin({//提取css到文件中
             filename: "[name].css",//name取决于entry键值名
             chunkFilename: "[id].css"//如果css分包了，那么chunk名字是
+        }),
+        new SpritesmithPlugin({
+            src: {
+                cwd: path.resolve(__dirname, 'src/assets/images'),  //准备合并成sprit的图片存放文件夹
+                glob: '*.png'  //哪类图片
+            },
+            target: {
+                image: path.resolve(__dirname, 'dist/images/sprites.png'),  // sprite图片保存路径
+                css: path.resolve(__dirname, 'dist/_sprites.scss')  // 生成的sass保存在哪里
+            },
+            apiOptions: {
+                cssImageRef: "~sprite.png" //css根据该指引找到sprite图
+            }
         }),
         new HtmlWebpackPlugin({
             // favicon: path.join(__dirname, '../app/assets/images/favicon.ico'),

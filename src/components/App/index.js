@@ -9,7 +9,12 @@ class App extends Component{
     render() {
 
         return (
-            <img src={a} alt=""/>
+            <div>
+                <img src={a} alt=""/>
+                <div className="a"></div>
+                <div className="b"></div>
+            </div>
+
         )
 
     }
