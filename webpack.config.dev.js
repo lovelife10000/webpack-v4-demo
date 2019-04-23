@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const autoprefixer = require('autoprefixer');
 const SpritesmithPlugin = require('webpack-spritesmith');
+const apiMocker = require('mocker-api');
 
 const config = {
     mode: 'development',
@@ -64,6 +65,15 @@ const config = {
         contentBase: path.join(__dirname, "dist"),//不设置的话，会把整个项目的文件给显示出来，这个路径应该和output.path保持一致
         disableHostCheck: true,
         historyApiFallback: true,
+        before: function (app) {
+            apiMocker(app, path.resolve('./mocker/index.js'), {
+                // proxy: {
+                //     '/repos/*': 'http://api.github.com/',
+                //     // '/:owner/:repo/raw/:ref/*': 'http://127.0.0.1:2018'
+                // },
+                changeHost: false,
+            })
+        }
     },
     module: {
         rules: [
@@ -108,7 +118,7 @@ const config = {
                                     // ignoreIdentifier: false,  //（boolean/string）忽略单个属性的方法，启用ignoreidentifier后，replace将自动设置为true。
                                     // replace: true, // （布尔值）替换包含REM的规则，而不是添加回退。
                                     mediaQuery: false,  //（布尔值）允许在媒体查询中转换px。
-                                    minPixelValue: 3 //设置要替换的最小像素值(3px会被转rem)。 默认 0
+                                    minPixelValue: 0 //设置要替换的最小像素值(3px会被转rem)。 默认 0
                                 }),
                             ],
                         },

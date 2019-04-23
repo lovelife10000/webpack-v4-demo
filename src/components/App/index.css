@@ -1,6 +1,7 @@
 body{
     background: url('~assets/images/aaa.jpg');
     display: flex;
+
 }
 
 .a{
@@ -8,6 +9,7 @@ body{
     background-position: 0px 0px;
     width:48px;
     height: 48px;
+    border:1px solid red;
 }
 .b{
     background: url("../../../dist/images/sprites.png") no-repeat;
